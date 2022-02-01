@@ -20,12 +20,30 @@ const Header = () => {
           <Logo />
         </LogoWrapper>
         <DesktopNav>
-          <NavLink href="/sale">Sale</NavLink>
-          <NavLink href="/new">New&nbsp;Releases</NavLink>
-          <NavLink href="/men">Men</NavLink>
-          <NavLink href="/women">Women</NavLink>
-          <NavLink href="/kids">Kids</NavLink>
-          <NavLink href="/collections">Collections</NavLink>
+          <NavLinkContainer>
+            <NavLink href="/sale">Sale</NavLink>
+            <HiddenNavLink href="/sale">Sale</HiddenNavLink>
+          </NavLinkContainer>
+          <NavLinkContainer>
+            <NavLink href="/new">New&nbsp;Releases</NavLink>
+            <HiddenNavLink href="/new">New&nbsp;Releases</HiddenNavLink>
+          </NavLinkContainer>
+          <NavLinkContainer>
+            <NavLink href="/men">Men</NavLink>
+            <HiddenNavLink href="/men">Men</HiddenNavLink>
+          </NavLinkContainer>
+          <NavLinkContainer>
+            <NavLink href="/women">Women</NavLink>
+            <HiddenNavLink href="/women">Women</HiddenNavLink>
+          </NavLinkContainer>
+          <NavLinkContainer>
+            <NavLink href="/kids">Kids</NavLink>
+            <HiddenNavLink href="/kids">Kids</HiddenNavLink>
+          </NavLinkContainer>
+          <NavLinkContainer>
+            <NavLink href="/collections">Collections</NavLink>
+            <HiddenNavLink href="/collections">Collections</HiddenNavLink>
+          </NavLinkContainer>
         </DesktopNav>
         <MobileActions>
           <ShoppingBagButton>
@@ -114,16 +132,38 @@ const Filler = styled.div`
   }
 `;
 
-const NavLink = styled.a`
-  font-size: 1.125rem;
-  text-transform: uppercase;
-  text-decoration: none;
+const NavLinkContainer = styled.div`
+  position: relative;
+  overflow: hidden;
   color: var(--color-gray-900);
-  font-weight: ${WEIGHTS.medium};
 
   &:first-of-type {
     color: var(--color-secondary);
   }
+`;
+
+const NavLink = styled.a`
+  display: inline-block;
+  font-size: 1.125rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: inherit;
+  font-weight: ${WEIGHTS.medium};
+  
+  transition: transform 200ms;
+
+  ${NavLinkContainer}:hover & {
+    @media (prefers-reduced-motion: no-preference) {
+      transform: translateY(-100%);
+    }
+  }
+`;
+
+const HiddenNavLink = styled(NavLink)`
+  position: absolute;
+  left: 0;
+  bottom: -100%;
+  font-weight: bold;
 `;
 
 export default Header;
